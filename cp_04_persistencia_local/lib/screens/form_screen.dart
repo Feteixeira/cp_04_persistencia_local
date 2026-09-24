@@ -24,17 +24,25 @@ class _FormScreenState extends State<FormScreen> {
       descricao: _descricaoController.text,
     );
 
-    await DatabaseHelper.instance.insertRegistro(registro.toMap());
+    try {
+      await DatabaseHelper.instance.insertRegistro(registro.toMap());
 
-    _nomeController.clear();
-    _descricaoController.clear();
+      _nomeController.clear();
+      _descricaoController.clear();
 
-    widget.onSaved();
+      widget.onSaved();
 
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registro salvo com sucesso')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Registro salvo com sucesso')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro ao salvar: $e')),
+        );
+      }
     }
   }
 

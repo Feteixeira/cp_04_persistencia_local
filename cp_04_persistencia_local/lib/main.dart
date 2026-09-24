@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'screens/home_screen.dart';
 
 void main() {
+  databaseFactory = databaseFactoryFfiWeb;
   runApp(const MyApp());
 }
 
